@@ -1,0 +1,28 @@
+﻿
+
+<img width="150" src="@GetUrl()" alt="@GetAltDescription()" />
+@code {
+    [Parameter]
+    public BlackJackCard BlackJackCard { get; set; }
+    public string GetUrl()
+    {
+        @if (BlackJackCard.FaceUp)
+        {
+            return $"images/{(int)BlackJackCard.FaceValue}{Suit.GetName(BlackJackCard.Suit).Substring(0, 1)}.svg";
+        }else
+        {   
+            return "/images/BACK.svg";
+        }
+
+    }
+    public string GetAltDescription()
+    {
+        @if (BlackJackCard.FaceUp)
+        {
+            return $"{BlackJackCard.FaceValue} of {BlackJackCard.Suit}";
+        } else
+        {
+            return "Face down card";
+        }
+    }
+}

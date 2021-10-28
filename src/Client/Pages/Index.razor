@@ -1,3 +1,51 @@
 ﻿@page "/"
 
 <h1>BlackJack</h1>
+<p>
+    @foreach (var card in _blackJack.DealerHand.Cards)
+    {
+        <Card BlackJackCard="@card"></Card>
+    }
+
+
+</p>
+
+<p>
+    @foreach (var card in _blackJack.PlayerHand.Cards)
+    {
+        <Card BlackJackCard="@card"></Card>
+    }
+</p>
+<p>@_blackJack.GameSummary()</p>
+<p>Dealer total: @_blackJack.DealerHand.Value</p>
+<p>Player total: @_blackJack.PlayerHand.Value</p>
+
+@if (_blackJack.GameState.Equals(GameState.GameOver))
+{<button @onclick="StartNewGame" class="btn btn-primary">Start a new game</button>}
+else
+{
+
+}
+{
+    <button @onclick="GetAnotherCard" class="btn btn-primary">Get another card</button>
+    <button @onclick="Pass" class="btn btn-primary">Pass to Dealer</button>
+}
+
+
+@code{
+    private BlackJack _blackJack = new BlackJack();
+
+    public void StartNewGame()
+    {
+        _blackJack = new BlackJack();
+    }
+    public void GetAnotherCard()
+    {
+        _blackJack.GivePlayerAnotherCard();
+    }
+    public void Pass()
+    {
+        _blackJack.PassToDealer();
+    }
+
+}
